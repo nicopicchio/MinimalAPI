@@ -52,7 +52,15 @@ static Func<string> WelcomeMsg()
 
 static Func<MovieDb, int, Task<Movie>> GetMovieById()
 {
-    return async (MovieDb db, int id) => await db.Movies.FindAsync(id);
+    return async (MovieDb db, int id) =>
+    {
+        var movie = await db.Movies.FindAsync(id);
+        if (movie is null)
+        {
+            return (Movie)Results.NotFound();
+        }
+        return movie;
+    };
 }
 
 static Func<MovieDb, Movie, int, Task<IResult>> UpdateMovie()
