@@ -90,6 +90,7 @@ static Func<MovieDb, int, Task<IResult>> DeleteMovie()
             return Results.NotFound();
         }
         db.Movies.Remove(movie);
+        await db.SaveChangesAsync();
         return Results.Ok();
     };
 }
