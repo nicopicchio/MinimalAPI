@@ -57,7 +57,7 @@ static Func<MovieDb, int, Task<Movie>> GetMovieById()
         var movie = await db.Movies.FindAsync(id);
         if (movie is null)
         {
-            return (Movie)Results.NotFound();
+            return (Movie)Results.NotFound("Movie not found!");
         }
         return movie;
     };
